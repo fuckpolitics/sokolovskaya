@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sokolovskaya-beauty.ru/sitemap.xml
