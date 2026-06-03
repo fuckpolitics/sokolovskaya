@@ -936,6 +936,7 @@ body.menu-open .nav-overlay { opacity: 1; pointer-events: auto; }
   background: var(--accent-soft); border-radius: 12px; padding: 14px;
 }
 .form-success.is-visible { display: block; animation: fade 0.5s var(--ease); }
+.form-success.is-error { color: #b03a2e; background: rgba(176, 58, 46, 0.1); }
 
 /* ===== Legal page ===== */
 .legal { padding: clamp(40px, 7vw, 90px) 0; }
