@@ -1068,6 +1068,9 @@ body.menu-open .nav-overlay { opacity: 1; pointer-events: auto; }
   /* Hide advantages block on mobile */
   .advantages { display: none; }
 
+  /* Back-to-top is redundant on mobile (swipe + floating CTA already cover it) */
+  .to-top { display: none; }
+
   /* Client stories open via button on mobile */
   .cases-toggle { display: flex; }
   .cases-list { display: none; }
