@@ -177,6 +177,14 @@
     if (phoneInput.value.replace(/\D/g, "").length < 11) { phoneInput.classList.add("invalid"); ok = false; }
     if (!ok) return;
 
+    // Обещанный подарок: сразу отдаём гайд по уходу на скачивание
+    var guideLink = document.createElement("a");
+    guideLink.href = "assets/hair-care-guide.pdf";
+    guideLink.download = "Гайд по уходу за волосами.pdf";
+    document.body.appendChild(guideLink);
+    guideLink.click();
+    document.body.removeChild(guideLink);
+
     var services = Array.prototype.map.call(
       form.querySelectorAll('input[name="service"]:checked'),
       function (i) { return i.value; }
