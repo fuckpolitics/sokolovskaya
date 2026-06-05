@@ -752,34 +752,39 @@
           <li><span>Режим</span> ежедневно, по записи</li>
         </ul>
       </div>
-      <form class="contact__form" id="leadForm" novalidate>
+      <form class="contact__form" id="leadForm" action="https://formsubmit.co/Fedoseeva.ana.1993@icloud.com" method="POST" novalidate>
+        <input type="hidden" name="_subject" value="Новая заявка с сайта Sokolovskaya Beauty" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="https://sokolovskaya-beauty.ru/thanks.html" />
+        <input type="hidden" name="Услуги" id="servicesHidden" />
         <div class="field">
-          <input type="text" id="name" name="name" required placeholder=" " />
+          <input type="text" id="name" name="Имя" required placeholder=" " />
           <label for="name">Ваше имя</label>
         </div>
         <div class="field">
-          <input type="tel" id="phone" name="phone" required placeholder=" " />
+          <input type="tel" id="phone" name="Телефон" required placeholder=" " />
           <label for="phone">Телефон</label>
         </div>
         <div class="field-group">
           <span class="field-label">Что вас интересует? <small>можно выбрать несколько</small></span>
           <div class="chips" id="services">
-            <label class="chip"><input type="checkbox" name="service" value="Наращивание" /><span>Наращивание</span></label>
-            <label class="chip"><input type="checkbox" name="service" value="Коррекция" /><span>Коррекция</span></label>
-            <label class="chip"><input type="checkbox" name="service" value="Окрашивание" /><span>Окрашивание</span></label>
-            <label class="chip"><input type="checkbox" name="service" value="Уходовые процедуры" /><span>Уход</span></label>
-            <label class="chip"><input type="checkbox" name="service" value="Нужна консультация" /><span>Нужна консультация</span></label>
+            <label class="chip"><input type="checkbox" data-service value="Наращивание" /><span>Наращивание</span></label>
+            <label class="chip"><input type="checkbox" data-service value="Коррекция" /><span>Коррекция</span></label>
+            <label class="chip"><input type="checkbox" data-service value="Окрашивание" /><span>Окрашивание</span></label>
+            <label class="chip"><input type="checkbox" data-service value="Уходовые процедуры" /><span>Уход</span></label>
+            <label class="chip"><input type="checkbox" data-service value="Нужна консультация" /><span>Нужна консультация</span></label>
           </div>
         </div>
         <div class="field-group">
           <span class="field-label">Куда вам удобнее ответить?</span>
           <div class="seg" id="messenger">
             <label class="seg__opt">
-              <input type="radio" name="messenger" value="Max" checked />
+              <input type="radio" name="Мессенджер" value="Max" checked />
               <span class="seg__btn"><span class="seg__ic seg__ic--max" aria-hidden="true"><span class="max-mark"></span></span> Max</span>
             </label>
             <label class="seg__opt">
-              <input type="radio" name="messenger" value="Telegram" />
+              <input type="radio" name="Мессенджер" value="Telegram" />
               <span class="seg__btn"><span class="seg__ic seg__ic--tg" aria-hidden="true">✈</span> Telegram</span>
             </label>
           </div>
@@ -831,6 +836,6 @@
     <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M12 19V6m0 0-6 6m6-6 6 6"/></svg>
   </button>
 
-  <script src="script.js?v=9"></script>
+  <script src="script.js?v=11"></script>
 </body>
 </html>

@@ -167,9 +167,10 @@
   const nameInput = document.getElementById("name");
   nameInput.addEventListener("input", function () { nameInput.classList.remove("invalid"); });
 
-  // Заявки уходят на e-mail через FormSubmit (без бэкенда, подходит для статичного сайта)
-  var FORM_ENDPOINT = "https://formsubmit.co/ajax/Fedoseeva.ana.1993@icloud.com";
-
+  // Заявка уходит на e-mail через FormSubmit обычной отправкой формы (top-level POST).
+  // Это единственный режим, который надёжно проходит защиту Cloudflare у FormSubmit
+  // (fetch и iframe она блокирует). Браузер на пару секунд уходит на проверку безопасности,
+  // затем возвращается на thanks.html (поле _next).
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     let ok = true;
@@ -177,7 +178,15 @@
     if (phoneInput.value.replace(/\D/g, "").length < 11) { phoneInput.classList.add("invalid"); ok = false; }
     if (!ok) return;
 
-    // Обещанный подарок: сразу отдаём гайд по уходу на скачивание
+    // Услуги собираем в одно скрытое поле — аккуратный список в письме
+    var services = Array.prototype.map.call(
+      document.querySelectorAll('#services input[type="checkbox"]:checked'),
+      function (i) { return i.value; }
+    );
+    var servicesHidden = document.getElementById("servicesHidden");
+    if (servicesHidden) servicesHidden.value = services.length ? services.join(", ") : "Не указано";
+
+    // Подарок: гайд по уходу скачивается сразу, до перехода на отправку
     var guideLink = document.createElement("a");
     guideLink.href = "assets/hair-care-guide.pdf";
     guideLink.download = "Гайд по уходу за волосами.pdf";
@@ -185,53 +194,12 @@
     guideLink.click();
     document.body.removeChild(guideLink);
 
-    var services = Array.prototype.map.call(
-      form.querySelectorAll('input[name="service"]:checked'),
-      function (i) { return i.value; }
-    );
-    var messengerEl = form.querySelector('input[name="messenger"]:checked');
     var submitBtn = form.querySelector("button[type=submit]");
-
-    var payload = {
-      "Имя": nameInput.value.trim(),
-      "Телефон": phoneInput.value,
-      "Услуги": services.length ? services.join(", ") : "—",
-      "Удобный мессенджер": messengerEl ? messengerEl.value : "Max",
-      "_subject": "Новая заявка с сайта Sokolovskaya Beauty",
-      "_template": "table",
-      "_captcha": "false"
-    };
-
-    submitBtn.disabled = true;
     submitBtn.textContent = "Отправляем…";
+    submitBtn.disabled = true;
 
-    function finishSuccess() {
-      success.textContent = "Спасибо! Мы свяжемся с вами в ближайшее время 💌";
-      success.classList.remove("is-error");
-      success.classList.add("is-visible");
-      submitBtn.textContent = "Заявка отправлена";
-      setTimeout(function () {
-        form.reset();
-        success.classList.remove("is-visible");
-        submitBtn.textContent = "Записаться на консультацию";
-        submitBtn.disabled = false;
-      }, 5000);
-    }
-
-    function finishError() {
-      success.textContent = "Не удалось отправить заявку. Позвоните нам: +7 924 166 56 66";
-      success.classList.add("is-visible", "is-error");
-      submitBtn.textContent = "Записаться на консультацию";
-      submitBtn.disabled = false;
-    }
-
-    fetch(FORM_ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify(payload)
-    })
-      .then(function (r) { return r.ok ? finishSuccess() : finishError(); })
-      .catch(finishError);
+    // Небольшая пауза, чтобы скачивание гайда успело начаться, затем отправляем форму
+    setTimeout(function () { form.submit(); }, 700);
   });
 
   /* ---------- Before / After sliders ---------- */
